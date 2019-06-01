@@ -1,7 +1,6 @@
 package DAO;
 
 import Modele.Teacher;
-import Main.Connexion;
 import com.mysql.jdbc.Connection;
 
 /**

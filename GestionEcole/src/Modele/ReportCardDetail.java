@@ -4,20 +4,20 @@ package Modele;
  *
  * @author lelel
  */
-public class ReportDetailCard {
+public class ReportCardDetail {
     private int id = 0;
     private int idReportCard = 0;
     private int idCourse = 0;
     private String comment = "";
     
-    public ReportDetailCard(int id, int idReportCard, int idCourse, String comment){
+    public ReportCardDetail(int id, int idReportCard, int idCourse, String comment){
         this.id = id;
         this.idReportCard = idReportCard;
         this.idCourse = idCourse;
         this.comment = comment;
     }
     
-    public ReportDetailCard(){}
+    public ReportCardDetail(){}
     
     
     public int getId(){
