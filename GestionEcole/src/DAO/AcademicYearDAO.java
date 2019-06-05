@@ -2,6 +2,8 @@ package DAO;
 
 import com.mysql.jdbc.Connection;
 import Modele.AcademicYear;
+import Modele.Level;
+import java.util.ArrayList;
 import Main.Connexion;
 
 /**
@@ -32,5 +34,11 @@ public class AcademicYearDAO extends DAO<AcademicYear>{
     public AcademicYear find(int id) {
         AcademicYear ay = new AcademicYear();
         return ay;
+    }
+    
+    public ArrayList<AcademicYear> getAll() {
+        ArrayList<AcademicYear> res = new ArrayList<>();
+        res.add(new AcademicYear(0));
+        return res;
     }
 }

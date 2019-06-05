@@ -47,4 +47,9 @@ public class Student {
     public void setIdClass(int idClass){
         this.idClass = idClass;
     }
+    
+    @Override
+    public String toString() {
+        return "" + this.FirstName + " " + this.LastName;
+    }
 }

@@ -45,4 +45,9 @@ public class Classe {
     public void setIdAcademicYear(int idAcademicYear){
         this.idAcademicYear = idAcademicYear;
     }
+    
+    @Override
+    public String toString() {
+        return this.idLevel + this.name;
+    }
 }

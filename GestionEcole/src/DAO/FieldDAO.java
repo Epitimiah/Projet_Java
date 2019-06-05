@@ -1,7 +1,9 @@
 package DAO;
 
+import Modele.AcademicYear;
 import Modele.Field;
 import com.mysql.jdbc.Connection;
+import java.util.ArrayList;
 import Main.Connexion;
 
 /**
@@ -32,5 +34,11 @@ public class FieldDAO extends DAO<Field>{
     public Field find(int id) {
         Field f = new Field();
         return f;
+    }
+    
+    public ArrayList<Field> getAll() {
+        ArrayList<Field> res = new ArrayList<>();
+        res.add(new Field(0, "SVT"));
+        return res;
     }
 }

@@ -45,4 +45,9 @@ public class Grade {
     public void setIdRCDetail(int idRCDetail){
         this.idReportCardDetail = idRCDetail;
     }
+    
+    @Override
+    public String toString() {
+        return "" + this.grade + " " + this.gradeComment;
+    }
 }
