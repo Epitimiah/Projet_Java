@@ -1,7 +1,9 @@
 package DAO;
 
+import Modele.AcademicYear;
 import Modele.ReportCardDetail;
 import com.mysql.jdbc.Connection;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,5 +33,11 @@ public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
     public ReportCardDetail find(int id) {
         ReportCardDetail rcd = new ReportCardDetail();
         return rcd;
+    }
+    
+    public ArrayList<ReportCardDetail> getAll() {
+        ArrayList<ReportCardDetail> res = new ArrayList<>();
+        res.add(new ReportCardDetail(0, 0, 0, "Am potat"));
+        return res;
     }
 }

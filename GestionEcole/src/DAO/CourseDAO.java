@@ -2,6 +2,7 @@ package DAO;
 
 import Modele.Course;
 import com.mysql.jdbc.Connection;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,5 +32,11 @@ public class CourseDAO extends DAO<Course>{
     public Course find(int id) {
         Course c = new Course();
         return c;
+    }
+
+    public ArrayList<Course> getAll() {
+        ArrayList<Course> res = new ArrayList<>();
+        res.add(new Course(1, 2, 3, 4));
+        return res;
     }
 }

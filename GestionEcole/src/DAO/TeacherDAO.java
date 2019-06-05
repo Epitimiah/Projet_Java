@@ -1,7 +1,9 @@
 package DAO;
 
+import Modele.AcademicYear;
 import Modele.Teacher;
 import com.mysql.jdbc.Connection;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,5 +33,11 @@ public class TeacherDAO extends DAO<Teacher>{
     public Teacher find(int id) {
         Teacher t = new Teacher();
         return t;
+    }
+    
+    public ArrayList<Teacher> getAll() {
+        ArrayList<Teacher> res = new ArrayList<>();
+        res.add(new Teacher(0, "bob", "patrick"));
+        return res;
     }
 }
