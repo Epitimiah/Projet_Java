@@ -3,13 +3,14 @@ package DAO;
 import Modele.ReportCard;
 import com.mysql.jdbc.Connection;
 import java.util.ArrayList;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class ReportCardDAO extends DAO<ReportCard> {
-    public ReportCardDAO(Connection conn){
+    public ReportCardDAO(Connexion conn){
         super(conn);
     }
 

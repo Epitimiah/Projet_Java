@@ -1,15 +1,16 @@
 package DAO;
 
 import java.sql.Connection;
+import Main.Connexion;
 
 /**
  *
  * @author 
  */
 public abstract class DAO<T> {
-    protected Connection connect = null;
+    protected Connexion connect = null;
     
-    public DAO(Connection conn){
+    public DAO(Connexion conn){
         this.connect = conn;
     }
     

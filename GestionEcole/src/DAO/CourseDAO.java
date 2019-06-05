@@ -3,13 +3,14 @@ package DAO;
 import Modele.Course;
 import com.mysql.jdbc.Connection;
 import java.util.ArrayList;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class CourseDAO extends DAO<Course>{
-    public CourseDAO(Connection conn){
+    public CourseDAO(Connexion conn){
         super(conn);
     }
 

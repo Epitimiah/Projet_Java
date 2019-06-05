@@ -4,13 +4,14 @@ import Modele.AcademicYear;
 import Modele.Field;
 import com.mysql.jdbc.Connection;
 import java.util.ArrayList;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class FieldDAO extends DAO<Field>{
-    public FieldDAO(Connection conn){
+    public FieldDAO(Connexion conn){
         super(conn);
     }
 

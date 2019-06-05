@@ -3,13 +3,14 @@ package DAO;
 import Modele.Level;
 import com.mysql.jdbc.Connection;
 import java.util.ArrayList;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class LevelDAO extends DAO<Level>{
-    public LevelDAO(Connection conn){
+    public LevelDAO(Connexion conn){
         super(conn);
     }
 

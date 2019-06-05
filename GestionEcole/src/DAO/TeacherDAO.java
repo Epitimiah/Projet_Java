@@ -4,13 +4,14 @@ import Modele.AcademicYear;
 import Modele.Teacher;
 import com.mysql.jdbc.Connection;
 import java.util.ArrayList;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class TeacherDAO extends DAO<Teacher>{
-    public TeacherDAO(Connection conn){
+    public TeacherDAO(Connexion conn){
         super(conn);
     }
 

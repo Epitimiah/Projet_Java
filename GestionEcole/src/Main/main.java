@@ -1,4 +1,9 @@
 package Main;
+import DAO.*;
+import Modele.*;
+import com.mysql.jdbc.Connection;
+import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import Vue.Display;
 
@@ -13,6 +18,15 @@ public class main {
      */
     public static void main(String[] args) {
         Display display = new Display();
+
+        try {
+            Connexion co = new Connexion("ecole","root","");
+        } catch (SQLException ex) {
+            System.out.println("Error SQL");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error class not found");
+        }
+
     }
     
 }
