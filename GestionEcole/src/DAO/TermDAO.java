@@ -2,13 +2,14 @@ package DAO;
 
 import Modele.Term;
 import com.mysql.jdbc.Connection;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class TermDAO extends DAO<Term>{
-    public TermDAO(Connection conn){
+    public TermDAO(Connexion conn){
         super(conn);
     }
 

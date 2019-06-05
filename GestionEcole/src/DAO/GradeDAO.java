@@ -2,13 +2,14 @@ package DAO;
 
 import Modele.Grade;
 import com.mysql.jdbc.Connection;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class GradeDAO extends DAO<Grade>{
-    public GradeDAO(Connection conn){
+    public GradeDAO(Connexion conn){
         super(conn);
     }
 

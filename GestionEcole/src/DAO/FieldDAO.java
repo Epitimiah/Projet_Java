@@ -2,13 +2,14 @@ package DAO;
 
 import Modele.Field;
 import com.mysql.jdbc.Connection;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class FieldDAO extends DAO<Field>{
-    public FieldDAO(Connection conn){
+    public FieldDAO(Connexion conn){
         super(conn);
     }
 

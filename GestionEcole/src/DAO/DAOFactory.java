@@ -9,7 +9,7 @@ import com.mysql.jdbc.Connection;
  * @author 
  */
 public class DAOFactory {
-    public static Connection conn;
+    public static Connexion conn;
   
   public static DAO getTeacherDAO(){
     return new TeacherDAO(conn);
@@ -48,7 +48,7 @@ public class DAOFactory {
   }
   
   public static DAO getClassDAO(){
-    return new ClassDAO(conn);
+    return new ClasseDAO(conn);
   }
   
   public static DAO getAcademicYearDAO(){

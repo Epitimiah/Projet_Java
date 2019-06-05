@@ -2,13 +2,14 @@ package DAO;
 
 import Modele.ReportCardDetail;
 import com.mysql.jdbc.Connection;
+import Main.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
-    public ReportCardDetailDAO(Connection conn){
+    public ReportCardDetailDAO(Connexion conn){
         super(conn);
     }
 
