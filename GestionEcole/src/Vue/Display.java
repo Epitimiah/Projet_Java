@@ -186,7 +186,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         JTextField nom = new JTextField();
         JTextField prenom = new JTextField();
         
-        ClassDAO classDAO = (ClassDAO) DAOFactory.getClassDAO();
+        ClasseDAO classDAO = (ClasseDAO) DAOFactory.getClassDAO();
         ArrayList<Classe> options = classDAO.getAll();
         JComboBox<Classe> classe;
         classe = new JComboBox<>(options.toArray(new Classe[options.size()]));
@@ -297,7 +297,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         int result = JOptionPane.showConfirmDialog(null, panel, "",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (result == JOptionPane.OK_OPTION) {
-            ClassDAO DAO = (ClassDAO) DAOFactory.getClassDAO();
+            ClasseDAO DAO = (ClasseDAO) DAOFactory.getClassDAO();
             
             DAO.create(new Classe(0, nom.getText(), (int) ((Classe) niveau.getSelectedItem()).getId(), (int) ((Classe) annee.getSelectedItem()).getId()));
             System.out.println("Ajout reussi");
@@ -340,7 +340,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         JComboBox<Field> matiere;
         matiere = new JComboBox<>(optionsMatiere.toArray(new Field[optionsMatiere.size()]));
         
-        ClassDAO classDAO = (ClassDAO) DAOFactory.getClassDAO();
+        ClasseDAO classDAO = (ClasseDAO) DAOFactory.getClassDAO();
         ArrayList<Classe> optionsClasse = classDAO.getAll();
         JComboBox<Classe> classe;
         classe = new JComboBox<>(optionsClasse.toArray(new Classe[optionsClasse.size()]));
