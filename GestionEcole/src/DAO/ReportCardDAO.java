@@ -2,6 +2,7 @@ package DAO;
 
 import Modele.ReportCard;
 import com.mysql.jdbc.Connection;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,5 +32,11 @@ public class ReportCardDAO extends DAO<ReportCard> {
     public ReportCard find(int id) {
         ReportCard rc = new ReportCard();
         return rc;
+    }
+
+    public ArrayList<ReportCard> getAll() {
+        ArrayList<ReportCard> res = new ArrayList<>();
+        res.add(new ReportCard(1, 2, 3, "patate"));
+        return res;
     }
 }

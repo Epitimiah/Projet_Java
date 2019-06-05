@@ -4,19 +4,19 @@ package Modele;
  *
  * @author lelel
  */
-public class Class {
+public class Classe {
     private int id = 0;
     private String name = "";
     private int idLevel = 0;
     private int idAcademicYear = 0;
     
-    public Class(int id, String name, int idLevel, int idAcademicYear){
+    public Classe(int id, String name, int idLevel, int idAcademicYear){
         this.id = id;
         this.name = name;
         this.idLevel = idLevel;
         this.idAcademicYear = idAcademicYear;
     }
-    public Class(){}
+    public Classe(){}
     
     public int getId(){
         return id;
@@ -44,5 +44,10 @@ public class Class {
     }
     public void setIdAcademicYear(int idAcademicYear){
         this.idAcademicYear = idAcademicYear;
+    }
+    
+    @Override
+    public String toString() {
+        return this.idLevel + this.name;
     }
 }

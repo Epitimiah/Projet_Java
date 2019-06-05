@@ -41,4 +41,9 @@ public class Teacher {
     public void setFirstName(String FirstName){
         this.FirstName = FirstName;
     }
+    
+    @Override
+    public String toString() {
+        return "" + this.FirstName + " " + this.LastName;
+    }
 }

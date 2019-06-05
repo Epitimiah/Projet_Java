@@ -2,6 +2,7 @@ package DAO;
 
 import com.mysql.jdbc.Connection;
 import Modele.Student;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,5 +32,11 @@ public class StudentDAO extends DAO<Student> {
     public Student find(int id) {
         Student s = new Student();
         return s;
+    }
+
+    public ArrayList<Student> getAll() {
+        ArrayList<Student> res = new ArrayList<>();
+        res.add(new Student(0, "Morane", "Bob", 0));
+        return res;
     }
 }

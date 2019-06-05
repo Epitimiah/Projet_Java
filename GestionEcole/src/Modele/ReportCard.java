@@ -47,4 +47,9 @@ public class ReportCard {
     public void setGeneCom(String geneCom){
         this.generalComment = geneCom;
     }
+    
+    @Override
+    public String toString() {
+        return "" + this.generalComment;
+    }
 }

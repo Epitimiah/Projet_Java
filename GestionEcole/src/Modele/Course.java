@@ -45,4 +45,9 @@ public class Course {
     public void setIdClass(int idClass){
         this.idClass = idClass;
     }
+    
+    @Override
+    public String toString() {
+        return "" + this.id;
+    }
 }

@@ -2,6 +2,7 @@ package DAO;
 
 import Modele.Level;
 import com.mysql.jdbc.Connection;
+import java.util.ArrayList;
 
 /**
  *
@@ -31,5 +32,11 @@ public class LevelDAO extends DAO<Level>{
     public Level find(int id) {
         Level lvl = new Level();
         return lvl;
+    }
+    
+    public ArrayList<Level> getAll() {
+        ArrayList<Level> res = new ArrayList<>();
+        res.add(new Level(0, "3eme"));
+        return res;
     }
 }

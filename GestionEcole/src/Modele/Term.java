@@ -56,4 +56,9 @@ public class Term {
     public void setIdAcamdemicYear(int idAcademicYear){
         this.idAcademicYear = idAcademicYear;
     }
+    
+    @Override
+    public String toString() {
+        return "" + this.number + " " + this.start + "-" + this.end;
+    }
 }
