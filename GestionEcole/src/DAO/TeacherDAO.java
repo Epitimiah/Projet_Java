@@ -36,6 +36,10 @@ public class TeacherDAO extends DAO<Teacher>{
         return t;
     }
     
+    public boolean findIfExistsFromName(String name, String surname) {
+        return true;
+    }
+    
     public ArrayList<Teacher> getAll() {
         ArrayList<Teacher> res = new ArrayList<>();
         res.add(new Teacher(0, "bob", "patrick"));
