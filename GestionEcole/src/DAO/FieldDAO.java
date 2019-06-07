@@ -4,7 +4,7 @@ import Modele.AcademicYear;
 import Modele.Field;
 import com.mysql.jdbc.Connection;
 import java.util.ArrayList;
-import Main.Connexion;
+import Controller.Connexion;
 
 /**
  *

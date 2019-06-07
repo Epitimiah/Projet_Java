@@ -1,4 +1,4 @@
-package Main;
+package Controller;
 
 import java.sql.*;
 import java.util.ArrayList;

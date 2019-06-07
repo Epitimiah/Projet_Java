@@ -2,7 +2,7 @@ package DAO;
 
 import Modele.Grade;
 import com.mysql.jdbc.Connection;
-import Main.Connexion;
+import Controller.Connexion;
 
 /**
  *

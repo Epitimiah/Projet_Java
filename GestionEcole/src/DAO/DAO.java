@@ -1,7 +1,7 @@
 package DAO;
 
 import java.sql.Connection;
-import Main.Connexion;
+import Controller.Connexion;
 
 /**
  *

@@ -3,7 +3,7 @@ package DAO;
 import com.mysql.jdbc.Connection;
 import Modele.Student;
 import java.util.ArrayList;
-import Main.Connexion;
+import Controller.Connexion;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +18,9 @@ public class StudentDAO extends DAO<Student> {
     }
 
     @Override
-    public void create(Student objt) {
+    public void create(Student obj) {
         String created = "INSERT INTO student(FirstName, LastName) VALUES (" + 
-                ",'" + objt.getFirstName() + "'," +  ",'" + objt.getLastName() + "')";
+                ",'" + obj.getFirstName() + "'," +  ",'" + obj.getLastName() + "')";
         try {
             this.connect.executeUpdate(created);
         } catch (SQLException ex) {
@@ -28,18 +28,26 @@ public class StudentDAO extends DAO<Student> {
         }
     }
 
-    //utiliser id
     @Override
     public void delete(Student obj) {
-        String deleted = "";
-        deleted = "DELETE FROM ";
+        String deleted = "DELETE FROM student WHERE ID = '" + obj.getId() +"'";
+        try {
+            this.connect.executeUpdate(deleted);
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
     }
 
-    //utiliser id
     @Override
     public void update(Student obj) {
-        String updated = "";
-        updated = "UPDATE ecole SET colonne = 'nouvelle valeur' WHERE a = b";
+        String updated = "UPDATE student"
+                + "SET FirstName = '" + obj.getFirstName() + "', LastName = '"+ obj.getLastName() +"',"
+                + "WHERE ID ='" + obj.getId() +"'";
+        try {
+            this.connect.executeUpdate(updated);
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
     }
     
     //requete sql

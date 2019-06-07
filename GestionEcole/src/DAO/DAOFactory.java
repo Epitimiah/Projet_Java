@@ -1,6 +1,6 @@
 package DAO;
 
-import Main.Connexion;
+import Controller.Connexion;
 
 import com.mysql.jdbc.Connection;
 

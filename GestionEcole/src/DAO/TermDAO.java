@@ -3,7 +3,7 @@ package DAO;
 import Modele.Term;
 import com.mysql.jdbc.Connection;
 import java.util.ArrayList;
-import Main.Connexion;
+import Controller.Connexion;
 
 /**
  *
