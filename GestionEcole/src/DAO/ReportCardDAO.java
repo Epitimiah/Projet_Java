@@ -59,9 +59,32 @@ public class ReportCardDAO extends DAO<ReportCard> {
             ResultSet rs = this.stat.executeQuery(found);
             if(rs.first()){
                 rc = new ReportCard(rs.getInt("ID"), 
-                        rs.getInt("IDterm"),
-                        rs.getInt("IDstudent"),
-                        rs.getString("GeneralComment"));
+                                    rs.getInt("IDterm"), 
+                                    rs.getInt("IDstudent"),
+                                    rs.getString("GeneralComment"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
+        return rc;
+    }
+    
+    /**
+     * Methode permettant de trouver le bulletin correspondant a un eleve
+     * @param idStudent
+     * @return un bulletin
+     */
+    public ReportCard findFromStudentID(int idStudent){
+        ReportCard rc = new ReportCard();
+        String check = "SELECT * FROM reportcard WHERE IDstudent = " + idStudent + "'";
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(check);
+            while(rs.first()){
+                rc = new ReportCard(rs.getInt("ID"), 
+                                    rs.getInt("IDterm"), 
+                                    rs.getInt("IDstudent"),
+                                    rs.getString("GeneralComment"));
             }
         } catch (SQLException ex) {
             System.out.println("Error SQL request");
@@ -69,6 +92,10 @@ public class ReportCardDAO extends DAO<ReportCard> {
         return rc;
     }
 
+    /**
+     * Methode prenant tous les bulletins de la BDD et les met dans une arraylist
+     * @return une arraylist de bulletins
+     */
     @Override
     public ArrayList<ReportCard> getAll() {
         ArrayList<ReportCard> res = new ArrayList<>();
@@ -78,9 +105,9 @@ public class ReportCardDAO extends DAO<ReportCard> {
             ResultSet rs = this.stat.executeQuery(all);
             while(rs.next()){
                 ReportCard stu = new ReportCard(rs.getInt("ID"), 
-                        rs.getInt("IDterm"), 
-                        rs.getInt("IDstudent"),
-                        rs.getString("GeneralComment"));
+                                    rs.getInt("IDterm"), 
+                                    rs.getInt("IDstudent"),
+                                    rs.getString("GeneralComment"));
                 res.add(stu);
             }
         } catch (SQLException ex) {

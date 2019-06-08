@@ -46,7 +46,7 @@ public class Term {
     public String getEnd(){
         return end;
     }
-    public void setNumber(String end){
+    public void setEnd(String end){
         this.end = end;
     }
     

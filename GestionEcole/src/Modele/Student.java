@@ -1,5 +1,8 @@
 package Modele;
 
+import Modele.ReportCard;
+import DAO.*;
+
 /**
  *
  * @author lelel

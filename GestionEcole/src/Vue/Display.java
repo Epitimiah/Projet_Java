@@ -790,7 +790,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         if (result == JOptionPane.OK_OPTION) {
             ReportCardDAO DAO = (ReportCardDAO) DAOFactory.getReportCardDAO();
 
-            DAO.create(new ReportCard(0, (int) ((Term) semestre.getSelectedItem()).getId(), (int) ((Student) etudiant.getSelectedItem()).getId(), appreciation.getText()
+            DAO.create(new ReportCard(0, appreciation.getText(), (int) ((Term) semestre.getSelectedItem()).getId(), (int) ((Student) etudiant.getSelectedItem()).getId()
             ));
             System.out.println("Ajout reussi");
         } else {
