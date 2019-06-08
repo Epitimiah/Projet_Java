@@ -1,7 +1,7 @@
 package DAO;
 
 import Modele.Level;
-import com.mysql.jdbc.Connection;
+import java.sql.*;
 import java.util.ArrayList;
 import Controller.Connexion;
 
@@ -10,34 +10,80 @@ import Controller.Connexion;
  * @author lelel
  */
 public class LevelDAO extends DAO<Level>{
+    private Statement stat;
     public LevelDAO(Connexion conn){
         super(conn);
+        this.stat = null;
     }
 
     @Override
     public void create(Level obj) {
-         
+         String created = "INSERT INTO level(Name) VALUES ('" +
+                obj.getName() + "')";
+        try {
+            this.connect.executeUpdate(created);
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
     }
 
     @Override
     public void delete(Level obj) {
-        
+        String deleted = "DELETE FROM level WHERE ID = '" + obj.getId() +"'";
+        try {
+            this.connect.executeUpdate(deleted);
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
     }
 
     @Override
     public void update(Level obj) {
-        
+        String updated = "UPDATE level "
+                + "SET FirstName = '" + obj.getName() + 
+                " WHERE ID ='" + obj.getId() + "'";
+        try {
+            this.connect.executeUpdate(updated);
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
     }
 
     @Override
     public Level find(int id) {
         Level lvl = new Level();
+        String found = "SELECT * FROM level WHERE ID = '" + id +"'";
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(found);
+            if(rs.first()){
+                lvl = new Level(rs.getInt("ID"), 
+                        rs.getString("Name"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
         return lvl;
     }
     
+    @Override
     public ArrayList<Level> getAll() {
         ArrayList<Level> res = new ArrayList<>();
-        res.add(new Level(0, "3eme"));
+        String all = "SELECT * FROM level";
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(all);
+            while(rs.next()){
+                Level l = new Level(rs.getInt("ID"), 
+                        rs.getString("Name"));
+                res.add(l);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
+//        for(int i = 0 ; i < res.size() ; i++){
+//            System.out.println(res.get(i).getFirstName());    
+//        }
         return res;
     }
 }
