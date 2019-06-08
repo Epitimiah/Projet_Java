@@ -72,7 +72,7 @@ public class TermDAO extends DAO<Term>{
     @Override
     public ArrayList<Term> getAll() {
         ArrayList<Term> res = new ArrayList<>();
-        String all = "SELECT * FROM termt";
+        String all = "SELECT * FROM term";
         try {
             this.stat = this.connect.getConnection().createStatement();
             ResultSet rs = this.stat.executeQuery(all);

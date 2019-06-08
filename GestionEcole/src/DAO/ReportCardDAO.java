@@ -59,7 +59,9 @@ public class ReportCardDAO extends DAO<ReportCard> {
             ResultSet rs = this.stat.executeQuery(found);
             if(rs.first()){
                 rc = new ReportCard(rs.getInt("ID"), 
-                        rs.getInt("GeneralComment"), rs.getInt("IDterm"), rs.getString("IDstudent"));
+                        rs.getInt("IDterm"),
+                        rs.getInt("IDstudent"),
+                        rs.getString("GeneralComment"));
             }
         } catch (SQLException ex) {
             System.out.println("Error SQL request");
@@ -76,7 +78,9 @@ public class ReportCardDAO extends DAO<ReportCard> {
             ResultSet rs = this.stat.executeQuery(all);
             while(rs.next()){
                 ReportCard stu = new ReportCard(rs.getInt("ID"), 
-                        rs.getInt("GeneralComment"), rs.getInt("IDterm"), rs.getString("IDstudent"));
+                        rs.getInt("IDterm"), 
+                        rs.getInt("IDstudent"),
+                        rs.getString("GeneralComment"));
                 res.add(stu);
             }
         } catch (SQLException ex) {
