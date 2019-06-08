@@ -59,7 +59,7 @@ public class CourseDAO extends DAO<Course>{
             ResultSet rs = this.stat.executeQuery(found);
             if(rs.first()){
                 c = new Course(rs.getInt("ID"), 
-                        rs.getInt("IDteacher"), rs.getInt("IDfield"), rs.getInt("IDlass"));
+                        rs.getInt("IDteacher"), rs.getInt("IDfield"), rs.getInt("IDclass"));
             }
         } catch (SQLException ex) {
             System.out.println("Error SQL request");
@@ -75,7 +75,7 @@ public class CourseDAO extends DAO<Course>{
             ResultSet rs = this.stat.executeQuery(all);
             while(rs.next()){
                 Course c = new Course(rs.getInt("ID"), 
-                        rs.getInt("IDteacher"), rs.getInt("IDfield"), rs.getInt("IDlass"));
+                        rs.getInt("IDteacher"), rs.getInt("IDfield"), rs.getInt("IDclass"));
                 res.add(c);
             }
         } catch (SQLException ex) {

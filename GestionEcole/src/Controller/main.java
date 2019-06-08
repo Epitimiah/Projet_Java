@@ -19,16 +19,14 @@ public class main {
     public static void main(String[] args) {
         Display display = new Display();
 
-        
-        /** TEST POUR LES REQUETES SQL **/
-        //Student s = new Student(8, "oui", "slt", 1);
-        //stu.create(s);
-        //DAO<Student> e = DAOFactory.getStudentDAO();
+       
+        Student s = new Student(8, "oui", "slt", 1);
+        DAO<Student> e = DAOFactory.getStudentDAO();
         //e.create(s);
         //e.delete(s);
         //System.out.println(e.find(2).getFirstName());
         //e.update(s);
-        //e.getAll();
+        //System.out.println(e.getAll());
        
     }
     

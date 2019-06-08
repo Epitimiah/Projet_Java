@@ -48,6 +48,6 @@ public class Classe {
     
     @Override
     public String toString() {
-        return this.idLevel + this.name;
+        return this.idLevel + " " + this.name;
     }
 }
