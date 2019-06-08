@@ -67,7 +67,10 @@ public class TeacherDAO extends DAO<Teacher>{
         return t;
     }
     
-    @Override
+    public boolean findIfExistsFromName(String name, String surname) {
+        return true;
+    }
+    
     public ArrayList<Teacher> getAll() {
         ArrayList<Teacher> res = new ArrayList<>();
         String all = "SELECT * FROM teacher";
