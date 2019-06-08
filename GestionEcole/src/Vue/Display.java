@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -174,6 +173,11 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         ajouter_semestre.setActionCommand("ajouter_semestre");
         ajouter_semestre.addActionListener(menuItemListener);
         menu2.add(ajouter_semestre);
+        
+        JMenuItem suppr_eleve = new JMenuItem("suppr_eleve");
+        suppr_eleve.setActionCommand("suppr_eleve");
+        suppr_eleve.addActionListener(menuItemListener);
+        menu3.add(suppr_eleve);
 
         menu.add(menu1);
         menu.add(menu2);
@@ -238,6 +242,9 @@ public class Display extends JFrame implements ActionListener, ItemListener {
                 case "modif_bulletin":
                     selectAndUpdateReportCard();
                     break;
+                case "suppr_eleve":
+                    selectAndDeleteStudent();
+                    break;
             }
         }
     }
@@ -250,6 +257,30 @@ public class Display extends JFrame implements ActionListener, ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
 
+    }
+    
+    private void selectAndDeleteStudent() {
+        StudentDAO DAO = (StudentDAO) DAOFactory.getStudentDAO();
+        ArrayList<Student> options = DAO.getAll();
+        JComboBox<Student> listeEtudiants;
+        listeEtudiants = new JComboBox<>(options.toArray(new Student[options.size()]));
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("Quel eleve doit etre retire ?"));
+        panel.add(listeEtudiants);
+
+        // SELECT
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            Student etu = (Student) listeEtudiants.getSelectedItem();
+            String name = etu.getFirstName() + " " + etu.getLastName();
+            DAO.delete(etu);
+            System.out.println("L'etudiant " + etu + " a ete retire de l'ecole");
+        } else {
+            System.out.println("Cancelled");
+        }
     }
 
     private void selectAndUpdateStudent() {
@@ -271,13 +302,12 @@ public class Display extends JFrame implements ActionListener, ItemListener {
             updateStudent(DAO.find(id));
         } else {
             System.out.println("Cancelled");
-            return;
         }
     }
 
     private void updateStudent(Student s) {
         JPanel panel = new JPanel(new GridLayout(0, 1));
-        
+
         JTextField nom = new JTextField(s.getLastName());
         JTextField prenom = new JTextField(s.getFirstName());
 
@@ -286,8 +316,9 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         JComboBox<Classe> classe;
         classe = new JComboBox<>(optionsClasse.toArray(new Classe[optionsClasse.size()]));
         for (int i = 0; i < optionsClasse.size(); i++) {
+            System.out.println("i: " + i + ", idClasse: " + optionsClasse.get(i).getId() + ", idClasseEtudiant: " + s.getIdClass());
             if (optionsClasse.get(i).getId() == s.getIdClass()) {
-                classe.setSelectedItem(i);
+                classe.setSelectedIndex(i);
             }
         }
 
@@ -305,32 +336,217 @@ public class Display extends JFrame implements ActionListener, ItemListener {
             DAO.update(new Student(s.getId(), nom.getText(), prenom.getText(), (int) ((Classe) classe.getSelectedItem()).getId()));
         } else {
             System.out.println("Cancelled");
-            return;
         }
     }
 
     private void selectAndUpdateCourse() {
-        
-    }
-    
-    private void updateCourse(int id) {
+        CourseDAO DAO = (CourseDAO) DAOFactory.getCourseDAO();
+        ArrayList<Course> options = DAO.getAll();
+        JComboBox<Course> liste;
+        liste = new JComboBox<>(options.toArray(new Course[options.size()]));
 
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("Quel cours doit etre modifie ?"));
+        panel.add(liste);
+
+        // SELECT
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            int id = (int) ((Course) liste.getSelectedItem()).getId();
+            updateCourse(DAO.find(id));
+        } else {
+            System.out.println("Cancelled");
+        }
     }
-    
+
+    private void updateCourse(Course c) {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        TeacherDAO teacherDAO = (TeacherDAO) DAOFactory.getTeacherDAO();
+        ArrayList<Teacher> optionsProf = teacherDAO.getAll();
+        JComboBox<Teacher> profs;
+        profs = new JComboBox<>(optionsProf.toArray(new Teacher[optionsProf.size()]));
+        for (int i = 0; i < optionsProf.size(); i++) {
+            if (optionsProf.get(i).getId() == c.getIdTeacher()) {
+                profs.setSelectedIndex(i);
+            }
+        }
+
+        FieldDAO fieldDAO = (FieldDAO) DAOFactory.getFieldDAO();
+        ArrayList<Field> optionsField = fieldDAO.getAll();
+        JComboBox<Field> fields;
+        fields = new JComboBox<>(optionsField.toArray(new Field[optionsField.size()]));
+        for (int i = 0; i < optionsField.size(); i++) {
+            if (optionsField.get(i).getId() == c.getIdField()) {
+                fields.setSelectedIndex(i);
+            }
+        }
+
+        ClasseDAO classDAO = (ClasseDAO) DAOFactory.getClassDAO();
+        ArrayList<Classe> optionsClasse = classDAO.getAll();
+        JComboBox<Classe> classe;
+        classe = new JComboBox<>(optionsClasse.toArray(new Classe[optionsClasse.size()]));
+        for (int i = 0; i < optionsClasse.size(); i++) {
+            if (optionsClasse.get(i).getId() == c.getIdClass()) {
+                classe.setSelectedIndex(i);
+            }
+        }
+
+        panel.add(new JLabel("Professeur"));
+        panel.add(profs);
+        panel.add(new JLabel("Matiere"));
+        panel.add(fields);
+        panel.add(new JLabel("Classe"));
+        panel.add(classe);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            CourseDAO DAO = (CourseDAO) DAOFactory.getCourseDAO();
+            int idTeacher = (int) ((Teacher) profs.getSelectedItem()).getId();
+            int idField = (int) ((Field) fields.getSelectedItem()).getId();
+            int idClass = (int) ((Classe) classe.getSelectedItem()).getId();
+            DAO.update(new Course(c.getId(), idTeacher, idField, idClass));
+        } else {
+            System.out.println("Cancelled");
+        }
+    }
+
     private void selectAndUpdateReportCardDetail() {
-        
+        ReportCardDetailDAO DAO = (ReportCardDetailDAO) DAOFactory.getReportCardDetailDAO();
+        ArrayList<ReportCardDetail> options = DAO.getAll();
+        JComboBox<ReportCardDetail> liste;
+        liste = new JComboBox<>(options.toArray(new ReportCardDetail[options.size()]));
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("Quelle appreciation doit etre modifiee ?"));
+        panel.add(liste);
+
+        // SELECT
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            int id = (int) ((ReportCardDetail) liste.getSelectedItem()).getId();
+            updateReportCardDetail(DAO.find(id));
+        } else {
+            System.out.println("Cancelled");
+        }
     }
 
-    private void updateReportCardDetail(int id) {
+    private void updateReportCardDetail(ReportCardDetail rcd) {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
 
+        JTextField commentaire = new JTextField(rcd.getComment());
+
+        ReportCardDAO ReportCardDAO = (ReportCardDAO) DAOFactory.getReportCardDAO();
+        ArrayList<ReportCard> optionsBulletin = ReportCardDAO.getAll();
+        System.out.println("hey");
+        JComboBox<ReportCard> bulletin;
+        bulletin = new JComboBox<>(optionsBulletin.toArray(new ReportCard[optionsBulletin.size()]));
+        for (int i = 0; i < optionsBulletin.size(); i++) {
+            if (optionsBulletin.get(i).getId() == rcd.getIdRC()) {
+                bulletin.setSelectedIndex(i);
+            }
+        }
+
+        CourseDAO courseDAO = (CourseDAO) DAOFactory.getCourseDAO();
+        ArrayList<Course> optionsCourse = courseDAO.getAll();
+        JComboBox<Course> cours;
+        cours = new JComboBox<>(optionsCourse.toArray(new Course[optionsCourse.size()]));
+        for (int i = 0; i < optionsCourse.size(); i++) {
+            if (optionsCourse.get(i).getId() == rcd.getIdCourse()) {
+                cours.setSelectedIndex(i);
+            }
+        }
+
+        panel.add(new JLabel("Bulletin"));
+        panel.add(bulletin);
+        panel.add(new JLabel("Cours"));
+        panel.add(cours);
+        panel.add(new JLabel("Commentaire"));
+        panel.add(commentaire);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            ReportCardDetailDAO DAO = (ReportCardDetailDAO) DAOFactory.getReportCardDetailDAO();
+            int idBulletin = (int) ((ReportCard) bulletin.getSelectedItem()).getId();
+            int idCours = (int) ((Course) cours.getSelectedItem()).getId();
+            String com = commentaire.getText();
+            DAO.update(new ReportCardDetail(rcd.getId(), idBulletin, idCours, com));
+        } else {
+            System.out.println("Cancelled");
+        }
     }
 
     private void selectAndUpdateReportCard() {
-        
-    }
-            
-    private void updateReportCard(int id) {
+        ReportCardDAO DAO = (ReportCardDAO) DAOFactory.getReportCardDAO();
+        ArrayList<ReportCard> options = DAO.getAll();
+        JComboBox<ReportCard> liste;
+        liste = new JComboBox<>(options.toArray(new ReportCard[options.size()]));
 
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("Quel bulletin doit etre modifie ?"));
+        panel.add(liste);
+
+        // SELECT
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            int id = (int) ((ReportCard) liste.getSelectedItem()).getId();
+            updateReportCard(DAO.find(id));
+        } else {
+            System.out.println("Cancelled");
+        }
+    }
+
+    private void updateReportCard(ReportCard rc) {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        JTextField commentaire = new JTextField(rc.getGeneCom());
+
+        TermDAO termDAO = (TermDAO) DAOFactory.getTermDAO();
+        ArrayList<Term> optionsTerm = termDAO.getAll();
+        JComboBox<Term> semestre;
+        semestre = new JComboBox<>(optionsTerm.toArray(new Term[optionsTerm.size()]));
+        for (int i = 0; i < optionsTerm.size(); i++) {
+            if (optionsTerm.get(i).getId() == rc.getIdTerm()) {
+                semestre.setSelectedIndex(i);
+            }
+        }
+        
+        StudentDAO studentDAO = (StudentDAO) DAOFactory.getStudentDAO();
+        ArrayList<Student> optionsStudent = studentDAO.getAll();
+        JComboBox<Student> etudiant;
+        etudiant = new JComboBox<>(optionsStudent.toArray(new Student[optionsStudent.size()]));
+        for (int i = 0; i < optionsStudent.size(); i++) {
+            if (optionsStudent.get(i).getId() == rc.getIdStudent()) {
+                etudiant.setSelectedIndex(i);
+            }
+        }
+
+        panel.add(new JLabel("Semestre"));
+        panel.add(semestre);
+        panel.add(new JLabel("Etudiant"));
+        panel.add(etudiant);
+        panel.add(new JLabel("Commentaire"));
+        panel.add(commentaire);
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            ReportCardDAO DAO = (ReportCardDAO) DAOFactory.getReportCardDAO();
+            int termId = (int) ((Term) semestre.getSelectedItem()).getId();
+            int studentId = (int) ((Student) etudiant.getSelectedItem()).getId();
+            String com = commentaire.getText();
+            DAO.update(new ReportCard(rc.getId(), termId, studentId, com));
+        } else {
+            System.out.println("Cancelled");
+        }
     }
 
     private void addStudent() {
@@ -450,7 +666,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         if (result == JOptionPane.OK_OPTION) {
             ClasseDAO DAO = (ClasseDAO) DAOFactory.getClassDAO();
 
-            DAO.create(new Classe(0, nom.getText(), (int) ((Classe) niveau.getSelectedItem()).getId(), (int) ((Classe) annee.getSelectedItem()).getId()));
+            DAO.create(new Classe(0, nom.getText(), (int) ((Level) niveau.getSelectedItem()).getId(), (int) ((AcademicYear) annee.getSelectedItem()).getId()));
             System.out.println("Ajout reussi");
         } else {
             System.out.println("Cancelled");

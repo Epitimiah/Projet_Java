@@ -59,6 +59,6 @@ public class Term {
     
     @Override
     public String toString() {
-        return "" + this.number + " " + this.start + "-" + this.end;
+        return "" + this.number + " " + this.start + "  -  " + this.end;
     }
 }

@@ -19,8 +19,8 @@ public class StudentDAO extends DAO<Student> {
 
     @Override
     public void create(Student obj) {
-        String created = "INSERT INTO student(FirstName, LastName) VALUES ('" +
-                obj.getFirstName() + "','" + obj.getLastName() + "')";
+        String created = "INSERT INTO student(FirstName, LastName, IDClass) VALUES ('" +
+                obj.getFirstName() + "','" + obj.getLastName() + "','" + obj.getIdClass() + "')";
         try {
             this.connect.executeUpdate(created);
         } catch (SQLException ex) {
