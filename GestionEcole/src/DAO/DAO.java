@@ -1,7 +1,8 @@
 package DAO;
 
 import java.sql.Connection;
-import Main.Connexion;
+import Controller.Connexion;
+import java.util.*;
 
 /**
  *
@@ -19,4 +20,6 @@ public abstract class DAO<T> {
     public abstract void update(T obj);
     
     public abstract T find(int id);
+    
+    public abstract ArrayList<T> getAll();
 }

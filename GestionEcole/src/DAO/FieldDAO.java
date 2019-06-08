@@ -1,44 +1,89 @@
 package DAO;
 
-import Modele.AcademicYear;
 import Modele.Field;
-import com.mysql.jdbc.Connection;
-import java.util.ArrayList;
-import Main.Connexion;
+import java.sql.*;
+import java.util.*;
+import Controller.Connexion;
 
 /**
  *
  * @author lelel
  */
 public class FieldDAO extends DAO<Field>{
+    private Statement stat;
     public FieldDAO(Connexion conn){
         super(conn);
+        this.stat = null;
     }
 
     @Override
     public void create(Field obj) {
-         
+         String created = "INSERT INTO field(Name) VALUES ('" +
+                obj.getName() + "')";
+        try {
+            this.connect.executeUpdate(created);
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
     }
 
     @Override
     public void delete(Field obj) {
-        
+        String deleted = "DELETE FROM field WHERE ID = '" + obj.getId() +"'";
+        try {
+            this.connect.executeUpdate(deleted);
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
     }
 
     @Override
     public void update(Field obj) {
-        
+        String updated = "UPDATE field "
+                + "SET Name = '" + obj.getName()
+                + " WHERE ID ='" + obj.getId() + "'";
+        try {
+            this.connect.executeUpdate(updated);
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
     }
 
     @Override
     public Field find(int id) {
         Field f = new Field();
+        String found = "SELECT * FROM field WHERE ID = '" + id +"'";
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(found);
+            if(rs.first()){
+                f = new Field(rs.getInt("ID"), 
+                        rs.getString("Name"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
         return f;
     }
     
+    @Override
     public ArrayList<Field> getAll() {
         ArrayList<Field> res = new ArrayList<>();
-        res.add(new Field(0, "SVT"));
+        String all = "SELECT * FROM field";
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(all);
+            while(rs.next()){
+                Field f = new Field(rs.getInt("ID"), 
+                        rs.getString("Name"));
+                res.add(f);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
+//        for(int i = 0 ; i < res.size() ; i++){
+//            System.out.println(res.get(i).getFirstName());    
+//        }
         return res;
     }
 }

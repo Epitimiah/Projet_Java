@@ -1,8 +1,9 @@
 package DAO;
 
-import Main.Connexion;
+import Controller.Connexion;
 
 import com.mysql.jdbc.Connection;
+import java.sql.SQLException;
 
 /**
  *
@@ -10,6 +11,15 @@ import com.mysql.jdbc.Connection;
  */
 public class DAOFactory {
     public static Connexion conn;
+    static{
+        try {
+            DAOFactory.conn = new Connexion("ecole","root","");          
+        } catch (SQLException ex) {
+            System.out.println("Error SQL");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Error class not found");
+        }
+    }
   
   public static DAO getTeacherDAO(){
     return new TeacherDAO(conn);

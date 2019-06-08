@@ -1,4 +1,4 @@
-package Main;
+package Controller;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -64,6 +64,10 @@ public class Connexion {
         catch(SQLException e){
             e.printStackTrace();
         }
+    }
+    
+    public Connection getConnection(){
+        return this.conn;
     }
     
         /**

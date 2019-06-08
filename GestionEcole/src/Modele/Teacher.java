@@ -1,6 +1,6 @@
 package Modele;
 
-import Main.Connexion;
+import Controller.Connexion;
 
 /**
  *
