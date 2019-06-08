@@ -10,7 +10,7 @@ public class ReportCard {
     private int idStudent = 0;
     private String generalComment = "";
     
-    public ReportCard(int id, int idTerm, int idStudent, String generalComment){
+    public ReportCard(int id, String generalComment,int idTerm, int idStudent){
         this.id = id;
         this.idTerm = idTerm;
         this.idStudent = idStudent;
