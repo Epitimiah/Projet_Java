@@ -3,6 +3,7 @@ package DAO;
 import Modele.Grade;
 import java.sql.*;
 import Controller.Connexion;
+import Modele.ReportCardDetail;
 import java.util.*;
 
 /**
@@ -86,6 +87,25 @@ public class GradeDAO extends DAO<Grade>{
 //        for(int i = 0 ; i < res.size() ; i++){
 //            System.out.println(res.get(i).getFirstName());    
 //        }
+        return res;
+    }
+    
+    public ArrayList<Grade> findFromReportCardDetailID(int id) {
+        ArrayList<Grade> res = new ArrayList<>();
+        String check = "SELECT * FROM grade WHERE IDreportCardDetail = '" + id + "'";
+        System.out.println(check);
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(check);
+            while (rs.next()) {
+                res.add(new Grade(rs.getInt("ID"),
+                        rs.getFloat("Grade"),
+                        rs.getString("GradeComment"),
+                        rs.getInt("IDReportCardDetail")));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
         return res;
     }
 }
