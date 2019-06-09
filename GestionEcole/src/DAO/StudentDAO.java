@@ -7,8 +7,8 @@ import java.sql.*;
 
 
 /**
- *
- * @author lelel
+ * Classe pour la table "student" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class StudentDAO extends DAO<Student> {
     private Statement stat;
@@ -17,6 +17,10 @@ public class StudentDAO extends DAO<Student> {
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "eleve" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(Student obj) {
         String created = "INSERT INTO student(FirstName, LastName, IDClass) VALUES ('" +
@@ -28,6 +32,10 @@ public class StudentDAO extends DAO<Student> {
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "eleve" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(Student obj) {
         String deleted = "DELETE FROM student WHERE ID = '" + obj.getId() +"'";
@@ -38,6 +46,10 @@ public class StudentDAO extends DAO<Student> {
         }
     }
 
+    /**
+     * Permet de mettre a jour un objet de la classe "eleve" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(Student obj) {
         String updated = "UPDATE student "
@@ -51,6 +63,11 @@ public class StudentDAO extends DAO<Student> {
         }
     }
     
+    /**
+     * Permet de chercher un objet de la classe "eleve" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public Student find(int id) {
         Student s = new Student();
@@ -68,6 +85,10 @@ public class StudentDAO extends DAO<Student> {
         return s;
     }
 
+    /**
+     * Permet de recuperer tous les objets de la table "eleve" de la base de données
+     * @return une arraylist de tous les objets de la table
+     */
     @Override
     public ArrayList<Student> getAll() {
         ArrayList<Student> res = new ArrayList<>();

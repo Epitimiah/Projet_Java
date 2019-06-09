@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import Controller.Connexion;
 
 /**
- *
- * @author lelel
+ * Classe pour la table "level" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class LevelDAO extends DAO<Level>{
     private Statement stat;
@@ -16,6 +16,10 @@ public class LevelDAO extends DAO<Level>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "niveau" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(Level obj) {
          String created = "INSERT INTO level(Name) VALUES ('" +
@@ -27,6 +31,10 @@ public class LevelDAO extends DAO<Level>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "niveau" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(Level obj) {
         String deleted = "DELETE FROM level WHERE ID = '" + obj.getId() +"'";
@@ -37,6 +45,10 @@ public class LevelDAO extends DAO<Level>{
         }
     }
 
+    /**
+     * Permet de mettre a jour un objet de la classe "niveau" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(Level obj) {
         String updated = "UPDATE level "
@@ -49,6 +61,11 @@ public class LevelDAO extends DAO<Level>{
         }
     }
 
+    /**
+     * Permet de trouver un objet de la classe "niveau" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public Level find(int id) {
         Level lvl = new Level();
@@ -66,6 +83,10 @@ public class LevelDAO extends DAO<Level>{
         return lvl;
     }
     
+    /**
+     * Permet de recuperer tous les objets de la table "niveau" de la base de données
+     * @return une arraylist avec tous les objets de la table
+     */
     @Override
     public ArrayList<Level> getAll() {
         ArrayList<Level> res = new ArrayList<>();

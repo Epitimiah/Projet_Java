@@ -6,8 +6,8 @@ import java.sql.*;
 import Controller.Connexion;
 
 /**
- *
- * @author lelel
+ * Classe pour la table "reportcard" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class ReportCardDAO extends DAO<ReportCard> {
 
@@ -18,6 +18,10 @@ public class ReportCardDAO extends DAO<ReportCard> {
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "bulletin" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(ReportCard obj) {
         String created = "INSERT INTO reportcard(GeneralComment, IDterm, IDstudent) VALUES ('"
@@ -29,6 +33,10 @@ public class ReportCardDAO extends DAO<ReportCard> {
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "bulletin" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(ReportCard obj) {
         String deleted = "DELETE FROM reportcard WHERE ID = '" + obj.getId() + "'";
@@ -39,6 +47,10 @@ public class ReportCardDAO extends DAO<ReportCard> {
         }
     }
 
+    /**
+     * Permet de mettre a jour un objet de la classe "bulletin" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(ReportCard obj) {
         String updated = "UPDATE reportcard "
@@ -54,6 +66,11 @@ public class ReportCardDAO extends DAO<ReportCard> {
         }
     }
 
+    /**
+     * Permet de trouver un objet de la classe "bulletin" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public ReportCard find(int id) {
         ReportCard rc = new ReportCard();

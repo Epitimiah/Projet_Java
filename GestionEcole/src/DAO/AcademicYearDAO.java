@@ -6,8 +6,8 @@ import java.util.*;
 import Controller.Connexion;
 
 /**
- *
- * @author lelel
+ * Classe pour la table "academicyear" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class AcademicYearDAO extends DAO<AcademicYear>{
     private Statement stat;
@@ -16,6 +16,10 @@ public class AcademicYearDAO extends DAO<AcademicYear>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "année scolaire" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(AcademicYear obj) {
           String created = "INSERT INTO academicyear(ID) VALUES ('" +
@@ -27,6 +31,10 @@ public class AcademicYearDAO extends DAO<AcademicYear>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "année scolaire" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(AcademicYear obj) {
         String deleted = "DELETE FROM academicyear WHERE ID = '" + obj.getId() +"'";
@@ -37,7 +45,11 @@ public class AcademicYearDAO extends DAO<AcademicYear>{
         }
     }
 
-    //Peu utile pour cette classe
+    /**
+     * Permet de mettre à jour un objet de la classe "année scolaire" dans la base de données
+     * (peu utile pour cette classe)
+     * @param obj 
+     */
     @Override
     public void update(AcademicYear obj) {
         String updated = "UPDATE academicyear "
@@ -50,6 +62,11 @@ public class AcademicYearDAO extends DAO<AcademicYear>{
         }
     }
 
+    /**
+     * Permet de trouver un objet de la classe "année scolaire" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public AcademicYear find(int id) {
         AcademicYear ay = new AcademicYear();
@@ -66,6 +83,10 @@ public class AcademicYearDAO extends DAO<AcademicYear>{
         return ay;
     }
     
+    /**
+     * Permet de recuperer tous les objets de la table "annee scolaire" de la base de données
+     * @return une arraylist avec tous les objets de la table
+     */
     @Override
     public ArrayList<AcademicYear> getAll() {
         ArrayList<AcademicYear> res = new ArrayList<>();

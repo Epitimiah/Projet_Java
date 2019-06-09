@@ -6,8 +6,8 @@ import java.sql.*;
 import Controller.Connexion;
 
 /**
- *
- * @author lelel
+ * Classe pour la table "term" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class TermDAO extends DAO<Term>{
     private Statement stat;
@@ -16,6 +16,10 @@ public class TermDAO extends DAO<Term>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "trimestre" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(Term obj) {
          String created = "INSERT INTO term(Number, Start, End) VALUES ('" + 
@@ -27,6 +31,10 @@ public class TermDAO extends DAO<Term>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "trimestre" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(Term obj) {
         String deleted = "DELETE FROM term WHERE ID = '" + obj.getId() +"'";
@@ -37,6 +45,10 @@ public class TermDAO extends DAO<Term>{
         }
     }
 
+    /**
+     * Permet de mettre a jour un objet de la classe "trimestre" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(Term obj) {
         String updated = "UPDATE term "
@@ -51,6 +63,11 @@ public class TermDAO extends DAO<Term>{
         }
     }
 
+    /**
+     * Permet de chercher un objet de la classe "trimestre" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public Term find(int id) {
         Term t = new Term();
@@ -69,6 +86,10 @@ public class TermDAO extends DAO<Term>{
         return t;
     }
 
+    /**
+     * Permet de recuperer tous les objets de la table "trimestre" de la base de données
+     * @return une arraylist de tous les objets de la table
+     */
     @Override
     public ArrayList<Term> getAll() {
         ArrayList<Term> res = new ArrayList<>();

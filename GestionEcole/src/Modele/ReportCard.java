@@ -1,8 +1,8 @@
 package Modele;
 
 /**
- *
- * @author lelel
+ * Classe pour acceder a la table "reportcard" dans la base de donnees
+ * @author Adrien & Lea & Levanah
  */
 public class ReportCard {
     private int id = 0;

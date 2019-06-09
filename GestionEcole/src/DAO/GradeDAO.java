@@ -7,8 +7,8 @@ import Modele.ReportCardDetail;
 import java.util.*;
 
 /**
- *
- * @author lelel
+ * 
+ * @author Adrien & Lea & Levanah
  */
 public class GradeDAO extends DAO<Grade>{
     private Statement stat;
@@ -17,6 +17,10 @@ public class GradeDAO extends DAO<Grade>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "note" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(Grade obj) {
          String created = "INSERT INTO grade(Grade, GradeComment, IDreportCardDetail) VALUES ('" +
@@ -28,6 +32,10 @@ public class GradeDAO extends DAO<Grade>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "note" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(Grade obj) {
         String deleted = "DELETE FROM grade WHERE ID = '" + obj.getId() +"'";
@@ -38,6 +46,10 @@ public class GradeDAO extends DAO<Grade>{
         }
     }
 
+    /**
+     * Permet de mettre ajour un objet de la classe "note" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(Grade obj) {
         String updated = "UPDATE grade "
@@ -52,6 +64,11 @@ public class GradeDAO extends DAO<Grade>{
         }
     }
 
+    /**
+     * Permet de trouver un objet de la classe "note" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public Grade find(int id) {
         Grade g = new Grade();
@@ -69,6 +86,10 @@ public class GradeDAO extends DAO<Grade>{
         return g;
     }
     
+    /**
+     * Permet de recuperer tous les objets de la table "note" de la base données
+     * @return une arraylist avec tous les objets de la table
+     */
     @Override
     public ArrayList<Grade> getAll() {
         ArrayList<Grade> res = new ArrayList<>();
