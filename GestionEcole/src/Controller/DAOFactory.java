@@ -1,10 +1,6 @@
-package DAO;
+package Controller;
 
-import Controller.Connexion;
-<<<<<<< Updated upstream
-import com.mysql.jdbc.Connection;
-=======
->>>>>>> Stashed changes
+
 import java.sql.SQLException;
 
 /**
