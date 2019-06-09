@@ -7,7 +7,7 @@ import java.sql.*;
 
 /**
  * Classe pour la table "reportcarddetail" de la base de données
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
     private Statement stat;

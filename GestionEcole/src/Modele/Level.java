@@ -2,7 +2,7 @@ package Modele;
 
 /**
  * Classe pour acceder a la table "level" dans la base de donnees
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class Level {
     private int id = 0;

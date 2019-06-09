@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * 
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea Levanah
  */
 public class GradeDAO extends DAO<Grade>{
     private Statement stat;

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * Classe pour la table "level" de la base de données
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class LevelDAO extends DAO<Level>{
     private Statement stat;

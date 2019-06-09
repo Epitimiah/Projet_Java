@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * Classe abstrate pour l'utilisation de la methode des DAO
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public abstract class DAO<T> {
     protected Connexion connect = null;

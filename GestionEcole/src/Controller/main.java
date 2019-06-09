@@ -9,7 +9,7 @@ import Vue.Display;
 
 /**
  *
- * @author Adrien & Lévanah & Léa
+ * @author Adrien  Lévanah  Léa
  */
 public class main {
 

@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * Classe pour la table class de la base de données
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class ClasseDAO extends DAO<Classe>{
     private Statement stat;

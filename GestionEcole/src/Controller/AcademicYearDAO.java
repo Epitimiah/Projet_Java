@@ -6,7 +6,7 @@ import java.util.*;
 
 /**
  * Classe pour la table "academicyear" de la base de données
- * @author Adrien & Lea & Levanah
+ * @author Adrien Lea Levanah
  */
 public class AcademicYearDAO extends DAO<AcademicYear>{
     private Statement stat;

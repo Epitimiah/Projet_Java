@@ -6,7 +6,7 @@ import java.sql.SQLException;
 /**
  * Classe permettant la creation d'objet des differentes classes DAO 
  * et d'etablir leur connexion à la base de données
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class DAOFactory {
     /**

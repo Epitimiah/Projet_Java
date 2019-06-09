@@ -2,7 +2,7 @@ package Modele;
 
 /**
  * Classe pour acceder a la table "academicyear" dans la base de donnees
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class AcademicYear {
     private int id = 0;
