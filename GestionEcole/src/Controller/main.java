@@ -20,7 +20,6 @@ public class main {
         Display display = new Display();
 
        
-        Student s = new Student(8, "oui", "slt", 1);
         DAO<Student> e = DAOFactory.getStudentDAO();
         //e.create(s);
         //e.delete(s);

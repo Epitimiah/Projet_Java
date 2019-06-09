@@ -1,7 +1,6 @@
 package DAO;
 
 import Controller.Connexion;
-
 import com.mysql.jdbc.Connection;
 import java.sql.SQLException;
 

@@ -68,25 +68,17 @@ public class TeacherDAO extends DAO<Teacher>{
     }
     
     public boolean findIfExistsFromName(String name, String surname) {
-        String check = "SELECT * FROM teacher";
-        boolean ok = false;
+        String check = "SELECT * FROM teacher WHERE LastName = '" + name + "' AND FirstName = '" + surname + "'";
         try {
             this.stat = this.connect.getConnection().createStatement();
             ResultSet rs = this.stat.executeQuery(check);
             while(rs.next()){
-                Teacher t = new Teacher(rs.getInt("ID"), 
-                        rs.getString("FirstName"), rs.getString("LastName"));
-                if(name.equals(t.getFirstName()) && surname.equals(t.getLastName())){
-                    ok = true;
-                }
-                else{
-                    ok = false;
-                }
+                return true;
             }
         } catch (SQLException ex) {
             System.out.println("Error SQL request");
         }
-        return ok;
+        return false;
     }
     
     public ArrayList<Teacher> getAll() {

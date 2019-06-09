@@ -55,4 +55,9 @@ public class Student {
     public String toString() {
         return "" + this.FirstName + " " + this.LastName;
     }
+    
+    public ReportCard getReportCard() {
+        ReportCardDAO dao = (ReportCardDAO) DAOFactory.getReportCardDAO();
+        return dao.findFromStudentID(this.id);
+    }
 }

@@ -3,6 +3,7 @@ package DAO;
 import Modele.ReportCardDetail;
 import java.util.*;
 import Controller.Connexion;
+import Modele.ReportCard;
 import java.sql.*;
 
 /**
@@ -85,6 +86,25 @@ public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
 //        for(int i = 0 ; i < res.size() ; i++){
 //            System.out.println(res.get(i).getFirstName());    
 //        }
+        return res;
+    }
+    
+    public ArrayList<ReportCardDetail> findFromReportCardID(int id) {
+        ArrayList<ReportCardDetail> res = new ArrayList<ReportCardDetail>();
+        String check = "SELECT * FROM reportcarddetail WHERE IDreportCard = '" + id + "'";
+        System.out.println(check);
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(check);
+            while (rs.next()) {
+                res.add(new ReportCardDetail(rs.getInt("ID"),
+                        rs.getInt("IDreportCard"),
+                        rs.getInt("IDcourse"),
+                        rs.getString("Comment")));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
         return res;
     }
 }
