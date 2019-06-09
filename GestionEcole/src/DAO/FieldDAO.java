@@ -6,8 +6,8 @@ import java.util.*;
 import Controller.Connexion;
 
 /**
- *
- * @author lelel
+ * Classe pour la table "field" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class FieldDAO extends DAO<Field>{
     private Statement stat;
@@ -16,6 +16,10 @@ public class FieldDAO extends DAO<Field>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "matiere" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(Field obj) {
          String created = "INSERT INTO field(Name) VALUES ('" +
@@ -27,6 +31,10 @@ public class FieldDAO extends DAO<Field>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "matiere" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(Field obj) {
         String deleted = "DELETE FROM field WHERE ID = '" + obj.getId() +"'";
@@ -37,6 +45,10 @@ public class FieldDAO extends DAO<Field>{
         }
     }
 
+    /**
+     * Permet de mettre à jour un objet de la classe "matiere" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(Field obj) {
         String updated = "UPDATE field "
@@ -48,7 +60,12 @@ public class FieldDAO extends DAO<Field>{
             System.out.println("Error SQL request");
         }
     }
-
+    
+    /**
+     * Permet de chercher un objet de la classe "matiere" dans la base de données
+     * @param id
+     * @return l'objet correspondant a la recherche
+     */
     @Override
     public Field find(int id) {
         Field f = new Field();
@@ -66,6 +83,10 @@ public class FieldDAO extends DAO<Field>{
         return f;
     }
     
+    /**
+     * Permet de recuperer tous les objets de la classe "matiere" dans la base de données
+     * @return une arraylist avec tous les objets de la table
+     */
     @Override
     public ArrayList<Field> getAll() {
         ArrayList<Field> res = new ArrayList<>();

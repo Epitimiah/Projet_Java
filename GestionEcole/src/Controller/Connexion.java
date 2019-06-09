@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 
 /**
- *
- * @author 
+ * Classer permettant la connexion à la base de données
+ * @author M.Segado
  */
 public class Connexion {
     /**
@@ -66,6 +66,10 @@ public class Connexion {
         }
     }
     
+    /**
+     * Recupère la connexion
+     * @return 
+     */
     public Connection getConnection(){
         return this.conn;
     }

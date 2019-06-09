@@ -7,8 +7,8 @@ import Modele.ReportCard;
 import java.sql.*;
 
 /**
- *
- * @author lelel
+ * Classe pour la table "reportcarddetail" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
     private Statement stat;
@@ -17,6 +17,10 @@ public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "detail bulletin" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(ReportCardDetail obj) {
          String created = "INSERT INTO reportcarddetail(IDreportCard, IDCourse, Comment) VALUES ('" +
@@ -28,6 +32,10 @@ public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "detail bulletin" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(ReportCardDetail obj) {
         String deleted = "DELETE FROM reportcarddetail WHERE ID = '" + obj.getId() +"'";
@@ -38,6 +46,10 @@ public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
         }
     }
 
+    /**
+     * Permet de mettre a jour un objet de la classe "detail bulletin" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(ReportCardDetail obj) {
         String updated = "UPDATE reportcarddetail "
@@ -51,6 +63,11 @@ public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
         }
     }
 
+    /**
+     * Permet de chercher un objet de la classe "detail bulletin" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public ReportCardDetail find(int id) {
         ReportCardDetail rcd = new ReportCardDetail();
@@ -68,6 +85,10 @@ public class ReportCardDetailDAO extends DAO<ReportCardDetail>{
         return rcd;
     }
     
+    /**
+     * Permet de recuperer tous les objets de la table "detail bulletin" de la base de données
+     * @return une arraylist de tous les objets de la table
+     */
     @Override
     public ArrayList<ReportCardDetail> getAll() {
         ArrayList<ReportCardDetail> res = new ArrayList<>();

@@ -6,8 +6,8 @@ import java.util.*;
 import Controller.Connexion;
 
 /**
- *
- * @author lelel
+ * Classe pour la table "course" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class CourseDAO extends DAO<Course>{
     private Statement stat;
@@ -16,6 +16,10 @@ public class CourseDAO extends DAO<Course>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "course" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(Course obj) {
          String created = "INSERT INTO course(IDteacher, IDfield, IDclass) VALUES ('" +
@@ -27,6 +31,10 @@ public class CourseDAO extends DAO<Course>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "course" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(Course obj) {
         String deleted = "DELETE FROM course WHERE ID = '" + obj.getId() +"'";
@@ -37,6 +45,10 @@ public class CourseDAO extends DAO<Course>{
         }
     }
 
+    /**
+     * Permet de mettre à jour un objet de la classe "course" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(Course obj) {
         String updated = "UPDATE course "
@@ -50,6 +62,11 @@ public class CourseDAO extends DAO<Course>{
         }
     }
 
+    /**
+     * Permet de chercher un objet de la classe "course" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public Course find(int id) {
         Course c = new Course();
@@ -67,6 +84,10 @@ public class CourseDAO extends DAO<Course>{
         return c;
     }
 
+    /**
+     * Permet de recuperer tous les objets de la table "course" de la base de données
+     * @return une arraylist avec tous les objets de la table
+     */
     public ArrayList<Course> getAll() {
         ArrayList<Course> res = new ArrayList<>();
         String all = "SELECT * FROM course";

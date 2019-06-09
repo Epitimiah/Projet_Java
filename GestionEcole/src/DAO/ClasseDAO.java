@@ -6,8 +6,8 @@ import Controller.Connexion;
 import java.util.*;
 
 /**
- *
- * @author lelel
+ * Classe pour la table class de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class ClasseDAO extends DAO<Classe>{
     private Statement stat;
@@ -16,6 +16,10 @@ public class ClasseDAO extends DAO<Classe>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "classe" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(Classe obj) {
          String created = "INSERT INTO class(Name, IDlevel, IDacademicYear) VALUES ('" +
@@ -27,6 +31,10 @@ public class ClasseDAO extends DAO<Classe>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "classe" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(Classe obj) {
         String deleted = "DELETE FROM class WHERE ID = '" + obj.getId() +"'";
@@ -37,6 +45,10 @@ public class ClasseDAO extends DAO<Classe>{
         }
     }
 
+    /**
+     * Permet de mettre à jour un objet de la classe "classe" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(Classe obj) {
         String updated = "UPDATE class "
@@ -51,6 +63,11 @@ public class ClasseDAO extends DAO<Classe>{
         }
     }
 
+    /**
+     * Permet de trouver un objet de la classe "classe" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public Classe find(int id) {
         Classe c = new Classe();
@@ -68,6 +85,10 @@ public class ClasseDAO extends DAO<Classe>{
         return c;
     }
 
+    /**
+     * Permet de recuperer tous les objets de la table "classe" de la base de données
+     * @return une arraylist avec tous les objets de la table
+     */
     public ArrayList<Classe> getAll() {
         ArrayList<Classe> res = new ArrayList<>();
         String all = "SELECT * FROM class";
@@ -87,6 +108,4 @@ public class ClasseDAO extends DAO<Classe>{
 //        }
         return res;
     }
-
-   
 }

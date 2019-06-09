@@ -1,11 +1,10 @@
 package Modele;
 
-import Modele.ReportCard;
-import DAO.*;
-
+import DAO.ReportCardDAO;
+import DAO.DAOFactory;
 /**
- *
- * @author lelel
+ * Classe pour acceder a la table "student" dans la base de donnees
+ * @author Adrien & Lea & Levanah
  */
 public class Student {
     private int id = 0;

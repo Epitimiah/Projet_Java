@@ -1,10 +1,9 @@
 package Modele;
 
-import Controller.Connexion;
 
 /**
- *
- * @author lelel
+ * Classe pour acceder a la table "teacher" dans la base de donnees
+ * @author Adrien & Lea & Levanah
  */
 public class Teacher {
     private int id = 0;

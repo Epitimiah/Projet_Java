@@ -6,8 +6,8 @@ import Controller.Connexion;
 import java.sql.*;
 
 /**
- *
- * @author lelel
+ * Classe pour la table "teacher" de la base de données
+ * @author Adrien & Lea & Levanah
  */
 public class TeacherDAO extends DAO<Teacher>{
     private Statement stat;
@@ -16,6 +16,10 @@ public class TeacherDAO extends DAO<Teacher>{
         this.stat = null;
     }
 
+    /**
+     * Permet d'ajouter un objet de la classe "professeur" dans la base de données
+     * @param obj 
+     */
     @Override
     public void create(Teacher obj) {
          String created = "INSERT INTO teacher(FirstName, LastName) VALUES ('" + 
@@ -27,6 +31,10 @@ public class TeacherDAO extends DAO<Teacher>{
         }
     }
 
+    /**
+     * Permet de supprimer un objet de la classe "professeur" dans la base de données
+     * @param obj 
+     */
     @Override
     public void delete(Teacher obj) {
         String deleted = "DELETE FROM teacher WHERE ID = '" + obj.getId() +"'";
@@ -37,6 +45,10 @@ public class TeacherDAO extends DAO<Teacher>{
         }
     }
 
+    /**
+     * Permet de mettre a jour un objet de la classe "professeur" dans la base de données
+     * @param obj 
+     */
     @Override
     public void update(Teacher obj) {
         String updated = "UPDATE teacher "
@@ -50,6 +62,11 @@ public class TeacherDAO extends DAO<Teacher>{
         }
     }
 
+    /**
+     * Permet de chercher un objet de la classe "professeur" dans la base de données
+     * @param id
+     * @return l'objet correspondant à la recherche
+     */
     @Override
     public Teacher find(int id) {
         Teacher t = new Teacher();
@@ -67,6 +84,12 @@ public class TeacherDAO extends DAO<Teacher>{
         return t;
     }
     
+    /**
+     * Permet de verifier si un professeur existe dans la base de donnees ou non
+     * @param name
+     * @param surname
+     * @return true ou false selon si le professeur est dans la base de données ou non
+     */
     public boolean findIfExistsFromName(String name, String surname) {
         String check = "SELECT * FROM teacher WHERE LastName = '" + name + "' AND FirstName = '" + surname + "'";
         try {
@@ -81,6 +104,10 @@ public class TeacherDAO extends DAO<Teacher>{
         return false;
     }
     
+    /**
+     * Permet de recuperer tous les objets de la table "professeur" de la base de données
+     * @return une arraylist de tous les objets de la table
+     */
     public ArrayList<Teacher> getAll() {
         ArrayList<Teacher> res = new ArrayList<>();
         String all = "SELECT * FROM teacher";

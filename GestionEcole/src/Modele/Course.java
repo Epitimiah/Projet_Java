@@ -1,8 +1,8 @@
 package Modele;
 
 /**
- *
- * @author lelel
+ * Classe pour acceder a la table "course" dans la base de donnees
+ * @author Adrien & Lea & Levanah
  */
 public class Course {
     private int id = 0;
