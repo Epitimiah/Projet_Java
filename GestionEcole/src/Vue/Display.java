@@ -47,7 +47,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
     public Display() {
         super();
         this.setup();
-        //this.showLogin();
+        this.showLogin();
         this.buildInterface();
     }
 
