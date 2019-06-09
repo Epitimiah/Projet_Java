@@ -88,4 +88,23 @@ public class StudentDAO extends DAO<Student> {
 //        }
         return res;
     }
+    
+    public ArrayList<Student> findFromSimilarName(String name) {
+        ArrayList<Student> res = new ArrayList<>();
+        String all = "SELECT * FROM student WHERE FirstName LIKE '%" + name + "%'";
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(all);
+            while(rs.next()){
+                Student stu = new Student(rs.getInt("ID"), 
+                        rs.getString("FirstName"), 
+                        rs.getString("LastName"), 
+                        rs.getInt("IDClass"));
+                res.add(stu);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
+        return res;
+    }
 }

@@ -7,14 +7,20 @@ package Vue;
 
 import DAO.*;
 import Modele.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,7 +29,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -38,7 +47,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
     public Display() {
         super();
         this.setup();
-        this.showLogin();
+        //this.showLogin();
         this.buildInterface();
     }
 
@@ -84,6 +93,97 @@ public class Display extends JFrame implements ActionListener, ItemListener {
 
         this.setVisible(true);
     }
+    
+    private void selectStudentToDisplay() {
+        StudentDAO DAO = (StudentDAO) DAOFactory.getStudentDAO();
+        ArrayList<Student> options = DAO.getAll();
+        JComboBox<Student> listeEtudiants;
+        listeEtudiants = new JComboBox<>(options.toArray(new Student[options.size()]));
+
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        panel.add(new JLabel("De quel eleve afficher les infos ?"));
+        panel.add(listeEtudiants);
+
+        // SELECT
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            Student etu = (Student) listeEtudiants.getSelectedItem();
+            showStudentInfo(etu);
+        } else {
+            System.out.println("Cancelled");
+        }
+    }
+    
+    private void showStudentInfo(Student s) {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+
+        JTextField nom = new JTextField(s.getLastName());
+        nom.setEditable(false);
+        JTextField prenom = new JTextField(s.getFirstName());
+        prenom.setEditable(false);
+
+        ClasseDAO classDAO = (ClasseDAO) DAOFactory.getClassDAO();
+        Classe classeObject = classDAO.find(s.getIdClass());
+        JTextField classe = new JTextField(classeObject.toString());
+        classe.setEditable(false);
+        
+        ReportCardDAO reportCardDAO = (ReportCardDAO) DAOFactory.getReportCardDAO();
+        ReportCard bulletin = reportCardDAO.findFromStudentID(s.getId());
+        JTextField appreciationGenerale = new JTextField(bulletin.getGeneCom());
+        appreciationGenerale.setEditable(false);
+        
+        ReportCardDetailDAO reportCardDetailDAO = (ReportCardDetailDAO) DAOFactory.getReportCardDetailDAO();
+        ArrayList<ReportCardDetail> appreciations = reportCardDetailDAO.findFromReportCardID(bulletin.getId());
+
+        panel.add(new JLabel("Nom de l'eleve"));
+        panel.add(nom);
+        panel.add(new JLabel("Prénom de l'eleve"));
+        panel.add(prenom);
+        panel.add(new JLabel("Classe"));
+        panel.add(classe);
+        panel.add(Box.createVerticalStrut(1));
+        panel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        panel.add(new JLabel("Appréciation générale"));
+        panel.add(appreciationGenerale);
+        panel.add(Box.createVerticalStrut(1));
+        panel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        panel.add(new JLabel("Appréciations par matiere"));
+        
+        for (ReportCardDetail rcd : appreciations) {
+            CourseDAO courseDAO = (CourseDAO) DAOFactory.getCourseDAO();
+            Course cours = courseDAO.find(rcd.getIdCourse());
+            FieldDAO fieldDAO = (FieldDAO) DAOFactory.getFieldDAO();
+            Field matiere = fieldDAO.find(cours.getIdField());
+            String nomMatiere = matiere.getName();
+            
+            panel.add(new JLabel(nomMatiere));
+            JTextField ap = new JTextField(rcd.getComment());
+            ap.setEditable(false);
+            panel.add(ap);
+            
+            panel.add(new JLabel("Notes en " + nomMatiere));
+            
+            GradeDAO gradeDAO = (GradeDAO) DAOFactory.getGradeDAO();
+            ArrayList<Grade> notes = gradeDAO.findFromReportCardDetailID(rcd.getId());
+            for (Grade n : notes) {
+                JTextField note = new JTextField(n.getGrade() + "/20 " + n.getGradeCom());
+                note.setEditable(false);
+                panel.add(note);
+            }
+            panel.add(Box.createVerticalStrut(1));
+            panel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        }
+
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            
+        } else {
+            System.out.println("Cancelled");
+        }
+    }
 
     private void buildInterface() {
         menu = new JMenuBar();
@@ -95,6 +195,8 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         JMenu menu1 = new JMenu("Modifier");
         JMenu menu2 = new JMenu("Ajouter");
         JMenu menu3 = new JMenu("Supprimer");
+        JMenu menu4 = new JMenu("Afficher infos");
+        JMenu menu5 = new JMenu("Rechercher un etudiant");
 
         // Create options
         // MODIFY
@@ -178,10 +280,22 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         suppr_eleve.setActionCommand("suppr_eleve");
         suppr_eleve.addActionListener(menuItemListener);
         menu3.add(suppr_eleve);
+        
+        JMenuItem afficher_infos_etudiant = new JMenuItem("afficher_infos_etudiant");
+        afficher_infos_etudiant.setActionCommand("afficher_infos_etudiant");
+        afficher_infos_etudiant.addActionListener(menuItemListener);
+        menu4.add(afficher_infos_etudiant);
+        
+        JMenuItem rechercher_etudiant = new JMenuItem("rechercher_etudiant");
+        rechercher_etudiant.setActionCommand("rechercher_etudiant");
+        rechercher_etudiant.addActionListener(menuItemListener);
+        menu5.add(rechercher_etudiant);
 
         menu.add(menu1);
         menu.add(menu2);
         menu.add(menu3);
+        menu.add(menu4);
+        menu.add(menu5);
 
         Container contentPane = this.getContentPane();
         contentPane.setBackground(Color.white);
@@ -245,6 +359,14 @@ public class Display extends JFrame implements ActionListener, ItemListener {
                 case "suppr_eleve":
                     selectAndDeleteStudent();
                     break;
+                case "afficher_infos_etudiant":
+                    selectStudentToDisplay();
+                    break;
+                case "rechercher_etudiant":
+                    rechercherEtudiant();
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -257,6 +379,46 @@ public class Display extends JFrame implements ActionListener, ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
 
+    }
+    
+    private void rechercherEtudiant() {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        
+        JTextField prenom = new JTextField();
+
+        panel.add(new JLabel("Saisissez le prenom ou une partie du prenom de l'eleve recherche"));
+        panel.add(prenom);
+
+        // SELECT
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            StudentDAO DAO = (StudentDAO) DAOFactory.getStudentDAO();
+            ArrayList<Student> etudiants = DAO.findFromSimilarName(prenom.getText());
+            resultatsRechercheEtudiant(etudiants);
+        } else {
+            System.out.println("Cancelled");
+        }
+    }
+    
+    private void resultatsRechercheEtudiant(ArrayList<Student> etudiants) {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        
+        JComboBox<Student> listeEtudiants;
+        listeEtudiants = new JComboBox<>(etudiants.toArray(new Student[etudiants.size()]));
+        
+        panel.add(new JLabel("Resultats de recherche, choisir l'etudiant a afficher"));
+        panel.add(listeEtudiants);
+        
+        // SELECT
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            Student etu = (Student) listeEtudiants.getSelectedItem();
+            showStudentInfo(etu);
+        } else {
+            System.out.println("Cancelled");
+        }
     }
     
     private void selectAndDeleteStudent() {
@@ -316,7 +478,6 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         JComboBox<Classe> classe;
         classe = new JComboBox<>(optionsClasse.toArray(new Classe[optionsClasse.size()]));
         for (int i = 0; i < optionsClasse.size(); i++) {
-            System.out.println("i: " + i + ", idClasse: " + optionsClasse.get(i).getId() + ", idClasseEtudiant: " + s.getIdClass());
             if (optionsClasse.get(i).getId() == s.getIdClass()) {
                 classe.setSelectedIndex(i);
             }
@@ -543,7 +704,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
             int termId = (int) ((Term) semestre.getSelectedItem()).getId();
             int studentId = (int) ((Student) etudiant.getSelectedItem()).getId();
             String com = commentaire.getText();
-            DAO.update(new ReportCard(rc.getId(), termId, studentId, com));
+            DAO.update(new ReportCard(rc.getId(), com, termId, studentId));
         } else {
             System.out.println("Cancelled");
         }
