@@ -197,6 +197,7 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         JMenu menu3 = new JMenu("Supprimer");
         JMenu menu4 = new JMenu("Afficher infos");
         JMenu menu5 = new JMenu("Rechercher un etudiant");
+        JMenu menu6 = new JMenu("Rapport et stats");
 
         // Create options
         // MODIFY
@@ -290,12 +291,18 @@ public class Display extends JFrame implements ActionListener, ItemListener {
         rechercher_etudiant.setActionCommand("rechercher_etudiant");
         rechercher_etudiant.addActionListener(menuItemListener);
         menu5.add(rechercher_etudiant);
+        
+        JMenuItem afficher_stats = new JMenuItem("afficher_stats");
+        afficher_stats.setActionCommand("afficher_stats");
+        afficher_stats.addActionListener(menuItemListener);
+        menu6.add(afficher_stats);
 
         menu.add(menu1);
         menu.add(menu2);
         menu.add(menu3);
         menu.add(menu4);
         menu.add(menu5);
+        menu.add(menu6);
 
         Container contentPane = this.getContentPane();
         contentPane.setBackground(Color.white);
@@ -365,6 +372,8 @@ public class Display extends JFrame implements ActionListener, ItemListener {
                 case "rechercher_etudiant":
                     rechercherEtudiant();
                     break;
+                case "afficher_stats":
+                    afficherStats();
                 default:
                     break;
             }
@@ -379,6 +388,51 @@ public class Display extends JFrame implements ActionListener, ItemListener {
     @Override
     public void itemStateChanged(ItemEvent e) {
 
+    }
+    
+    private void afficherStats() {
+        JPanel panel = new JPanel(new GridLayout(0, 1));
+        
+        ClasseDAO classDAO = (ClasseDAO) DAOFactory.getClassDAO();
+        StudentDAO studentDAO = (StudentDAO) DAOFactory.getStudentDAO();
+        ReportCardDAO reportCardDAO = (ReportCardDAO) DAOFactory.getReportCardDAO();
+        ReportCardDetailDAO reportCardDetailDAO = (ReportCardDetailDAO) DAOFactory.getReportCardDetailDAO();
+        GradeDAO gradeDAO = (GradeDAO) DAOFactory.getGradeDAO();
+        
+        ArrayList<Classe> classes = classDAO.getAll();
+        
+        for (Classe c : classes) {
+            int total = 0;
+            float avg = 0;
+            ArrayList<Student> etudiants = studentDAO.findFromClasseID(c.getId());
+            for (Student s : etudiants) {
+                ReportCard bulletin = reportCardDAO.findFromStudentID(s.getId());
+                ArrayList<ReportCardDetail> rcd = reportCardDetailDAO.findFromReportCardID(bulletin.getId());
+                for (ReportCardDetail detail : rcd) {
+                    ArrayList<Grade> notes = gradeDAO.findFromReportCardDetailID(detail.getId());
+                    for (Grade note : notes) {
+                        total++;
+                        avg += note.getGrade();
+                    }
+                }
+            }
+            String resString = "";
+            if (total != 0)
+                resString += (float) (avg/(float)total);
+            else
+                resString = "Pas de note disponible";
+            JLabel res = new JLabel("Moyenne de la classe " + c.getName() + " : " + resString);
+            panel.add(res);
+        }
+
+        // SELECT
+        int result = JOptionPane.showConfirmDialog(null, panel, "",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        if (result == JOptionPane.OK_OPTION) {
+            
+        } else {
+            System.out.println("Cancelled");
+        }
     }
     
     private void rechercherEtudiant() {

@@ -6,7 +6,7 @@ import java.sql.*;
 
 /**
  * Classe pour la table "teacher" de la base de données
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class TeacherDAO extends DAO<Teacher>{
     private Statement stat;

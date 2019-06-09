@@ -6,7 +6,7 @@ import java.sql.*;
 
 /**
  * Classe pour la table "term" de la base de données
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class TermDAO extends DAO<Term>{
     private Statement stat;

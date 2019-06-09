@@ -7,7 +7,7 @@ import java.sql.*;
 
 /**
  * Classe pour la table "student" de la base de données
- * @author Adrien & Lea & Levanah
+ * @author Adrien  Lea  Levanah
  */
 public class StudentDAO extends DAO<Student> {
     private Statement stat;
@@ -112,6 +112,26 @@ public class StudentDAO extends DAO<Student> {
     public ArrayList<Student> findFromSimilarName(String name) {
         ArrayList<Student> res = new ArrayList<>();
         String all = "SELECT * FROM student WHERE FirstName LIKE '%" + name + "%'";
+        try {
+            this.stat = this.connect.getConnection().createStatement();
+            ResultSet rs = this.stat.executeQuery(all);
+            while(rs.next()){
+                Student stu = new Student(rs.getInt("ID"), 
+                        rs.getString("FirstName"), 
+                        rs.getString("LastName"), 
+                        rs.getInt("IDClass"));
+                res.add(stu);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error SQL request");
+        }
+        return res;
+    }
+    
+    public ArrayList<Student> findFromClasseID(int id) {
+        ArrayList<Student> res = new ArrayList<>();
+        String all = "SELECT * FROM student WHERE IDClass = '" + id + "'";
+        //System.out.println(all);
         try {
             this.stat = this.connect.getConnection().createStatement();
             ResultSet rs = this.stat.executeQuery(all);
