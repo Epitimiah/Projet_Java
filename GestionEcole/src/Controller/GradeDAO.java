@@ -1,9 +1,7 @@
-package DAO;
+package Controller;
 
 import Modele.Grade;
 import java.sql.*;
-import Controller.Connexion;
-import Modele.ReportCardDetail;
 import java.util.*;
 
 /**

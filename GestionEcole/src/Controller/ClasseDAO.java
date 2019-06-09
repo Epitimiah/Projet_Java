@@ -1,8 +1,7 @@
-package DAO;
+package Controller;
 
 import Modele.Classe;
 import java.sql.*;
-import Controller.Connexion;
 import java.util.*;
 
 /**
